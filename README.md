@@ -1,2 +1,1 @@
-# workshop-gis_day_2020
-Mapping exercise for the GIS DAY 2020, Wednesday  November 18, 2020
+# GIS DAY 2020: Mapping CoViD in the UK
