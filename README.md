@@ -1,4 +1,4 @@
-## GIS DAY 2020: Mapping CoViD in the UK using *R* and *Shiny*
+## GIS DAY 2020: Mapping Covid-19 in England *small areas* using *R* and *Shiny*
 
 ### *R* Packages
 
