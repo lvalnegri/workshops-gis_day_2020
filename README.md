@@ -41,17 +41,19 @@
 
  - [MSOA House of Commons *intelligible* Names](https://visual.parliament.uk/msoanames/static/MSOA-Names-1.7.csv)
 
- - [MSOA <=> LTLA <=> RGN lookup table](https://coronavirus.data.gov.uk/downloads/supplements/lookup_table.csv)
+ - [MSOA 2011 <=> LTLA 2020 <=> RGN lookup table](https://coronavirus.data.gov.uk/downloads/supplements/lookup_table.csv)
 
- - [Small Areas lookup table](https://geoportal.statistics.gov.uk/datasets/output-area-to-lower-layer-super-output-area-to-middle-layer-super-output-area-to-local-authority-district-december-2011-lookup-in-england-and-wales)
+ - [OA <=> LSOA <=> MSOA 2011 lookup table](https://geoportal.statistics.gov.uk/datasets/output-area-to-lower-layer-super-output-area-to-middle-layer-super-output-area-to-local-authority-district-december-2011-lookup-in-england-and-wales)
 
 ### GeoDemographics
 
  - [Population mid-2019 by MSOA](https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/middlesuperoutputareamidyearpopulationestimates)
 
- - [Output Area Classification]()
+ - [Output Area Classification by OA/LSOA]()
 
  - [Index of Multiple Deprivation 2019](https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019)
+
+ - [Food Shops Locations]()
 
  - [Household Disposable Income FA-2018 by MSOA](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/smallareaincomeestimatesformiddlelayersuperoutputareasenglandandwales)
 
