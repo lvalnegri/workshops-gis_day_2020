@@ -2,7 +2,7 @@
 
 ### *R* Packages
 
- - [data.table]() and [dplyr]() are two different packages for dealing with datasets
+ - [data.table]() and [dplyr]() + [tidyr]() are two different approaches for data wrangling and engineering
 
  - [readxl]() to easily read *Excel* files
  
