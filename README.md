@@ -49,11 +49,9 @@
 
  - [Population mid-2019 by MSOA](https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/middlesuperoutputareamidyearpopulationestimates)
 
- - [Output Area Classification by OA/LSOA]()
-
  - [Index of Multiple Deprivation 2019](https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019)
 
- - [Food Shops Locations]()
+ - [Food Shops Locations]() See my other github repo for how to collect data related to food shops
 
  - [Household Disposable Income FA-2018 by MSOA](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/smallareaincomeestimatesformiddlelayersuperoutputareasenglandandwales)
 
