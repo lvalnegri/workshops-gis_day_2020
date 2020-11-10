@@ -1,0 +1,34 @@
+never ever visualize absolute (counting) data! You only risk to build a so-called "population" map
+In general, the bigger the population living in the area, the higher the counting of any attribute 
+
+# data 
+
+
+# data 
+
+
+# boundaries load + merge
+
+
+# map drawing
+ - 
+
+ - 
+
+ - 
+
+ - data partitioning: fixed, equal, quantile, natural, ...
+ 
+ - color palette (is the attribute ordinal or only nominal? if ordinal, is it sequential or diverging?)
+ 
+ - legend
+ 
+ - title
+ 
+ - layers control menu: 
+     
+   - one of many
+     
+   - any of many
+     
+     
