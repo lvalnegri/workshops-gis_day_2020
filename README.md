@@ -4,7 +4,7 @@
 
  - [data.table]() and [dplyr]() + [tidyr]() are two different approaches for data wrangling and engineering
 
- - [readxl]() to easily read *Excel* files
+ - [openxlsx]() to easily read *Excel* files
  
  - [rgdal]() to read the boundaries in *shapefile* format
 
