@@ -4,24 +4,24 @@
 
  - [data.table]() and [dplyr]() + [tidyr]() are two different approaches for data wrangling and engineering
 
- - [openxlsx]() to easily read *Excel* files
+ - [openxlsx]() and [readxl]() to easily read *Excel* files
  
  - [rgdal]() to read the boundaries in *shapefile* format
 
- - [sp]() to store the spatial objects as a specific *R* class (you can also use the more modern [sf]())
+ - [sp]() to store the spatial objects as a specific *R* class (you can also use the more modern [sf]() that ties neatly with the *tidyvere*)
 
- - [rgeos]() a set of spatial tools
+ - [rgeos](), [rmapshaper](), and [raster]() are sets of spatial tools
 
- - [leaflet]() the *R* wrapper for the  eponymous [Javascript library](leaflet.js) that allows to build interactive maps (you can also use the more complete [tmap]() or [mapview](), though they both rely on *leaflet* anyway for the interactive mapping)
+ - [leaflet]() the *R* wrapper for the eponymous [Javascript library](leaflet.js) that allows to build interactive maps (you can also use the more complete [tmap]() or [mapview](), though they both rely on *leaflet* anyway for the interactive mapping). [leaflet.extras](), [leaflet.extras2](), [leafsync]() are add-ons packages that allows the *R* *leaflet* package to exploit more of the functionalities included in the original JS library.
 
 
 ### Boundaries
 
- - [MSOA England and Wales](https://opendata.arcgis.com/datasets/87aa4eb6393644768a5f85929cc704c2_0.zip) Super Generalized
+ - [MSOA Super Generalized](https://opendata.arcgis.com/datasets/87aa4eb6393644768a5f85929cc704c2_0.zip)
  
- - [LTLA United Kingdom](https://opendata.arcgis.com/datasets/910f48f3c4b3400aa9eb0af9f8989bbe_0.zip) Ultra Generalized
+ - [LTLA Ultra Generalized](https://opendata.arcgis.com/datasets/910f48f3c4b3400aa9eb0af9f8989bbe_0.zip) But these boundaries will be created by *dissolving* the above MSOA boundaries
  
- - [CCG United Kingdom](https://opendata.arcgis.com/datasets/910f48f3c4b3400aa9eb0af9f8989bbe_0.zip) Ultra Generalized
+ - [CCG Ultra Generalized](https://opendata.arcgis.com/datasets/dbfaf69873794690af4acddaf581572f_1.zip) 
  
 
 ### Covid Data
