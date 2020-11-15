@@ -34,7 +34,7 @@
  
  - [Hospital Admissions and Bed Occupancy by NHS trusts and Independent Sector Providers](https://www.england.nhs.uk/statistics/statistical-work-areas/covid-19-hospital-activity/)
  
- - [Potential Covid Calls. NHS Pathways and 111 by UTLA and CCG](https://www.england.nhs.uk/statistics/statistical-work-areas/covid-19-daily-deaths/)
+ - [Potential Covid Calls. NHS Pathways and 111 by UTLA and CCG](https://digital.nhs.uk/data-and-information/publications/statistical/mi-potential-covid-19-symptoms-reported-through-nhs-pathways-and-111-online/latest/)
  
 
 ### Ancillary Data
