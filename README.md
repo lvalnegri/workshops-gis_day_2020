@@ -26,7 +26,7 @@
 
 ### Covid Data
 
- - [Covid Cases by LTLA](https://coronavirus.data.gov.uk/downloads/csv/coronavirus-cases_latest.csv)
+ - Covid Cases by LTLA. [Total](https://coronavirus.data.gov.uk/downloads/csv/coronavirus-cases_latest.csv) and [by age class](https://coronavirus.data.gov.uk/downloads/demographic/cases/specimenDate_ageDemographic-stacked.csv)
  
  - [Covid Cases by MSOA](https://coronavirus.data.gov.uk/downloads/msoa_data/MSOAs_latest.csv)
  
@@ -44,6 +44,8 @@
  - [MSOA 2011 <=> LTLA 2020 <=> RGN lookup table](https://coronavirus.data.gov.uk/downloads/supplements/lookup_table.csv)
 
  - [OA <=> LSOA <=> MSOA 2011 lookup table](https://geoportal.statistics.gov.uk/datasets/output-area-to-lower-layer-super-output-area-to-middle-layer-super-output-area-to-local-authority-district-december-2011-lookup-in-england-and-wales)
+
+ - [ONS Postcode Directory (AUG-2020)](https://geoportal.statistics.gov.uk/datasets/ons-postcode-directory-august-2020)
 
 ### GeoDemographics
 
