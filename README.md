@@ -24,11 +24,11 @@ Some of the spatial packages mentioned above can be difficult to install correct
  
  - [LSOA](https://geoportal.statistics.gov.uk/datasets/lower-layer-super-output-area-december-2011-ew-bsc-v2) Lower Layer Super Output Areas
  
-As we are concerned here with geographical details, both the above boundaries are downloaded in the *super generalised* form, and can be actually simplified further. 
+As we are not concerned here with geographical details, both the above boundaries are downloaded in the *super generalised* form, and can be actually *simplified* further. 
 
-Other boundaries used in the session &mdash; *LTLA*, *UTLA*, *RGN*, *CCG*, *STP* &mdash; will be built by *dissolving* methods using the above boundaries and convenient lookup tables.
+Other boundaries used in the session &mdash; *LTLA* Lower Tier Local Authorities, *UTLA* Upper Tier LA, *RGN* Regions, NHS *CCG* Clinical Commissioning Groups, NHS *STP* Sustainability and Transformation Partnerships &mdash; will be built by *dissolving* methods using the above boundaries and convenient lookup tables.
 
-You can found [here](https://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography) a brief description of the UK Census Geography hierarchy.
+You can found [here](https://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography) a brief description of the UK Census Geography hierarchy, while [this](https://bit.ly/guide-uk-geographies) is a more comprehensive guide to the whole of UK Geogrpahies.
 
 ### Covid Data
 
