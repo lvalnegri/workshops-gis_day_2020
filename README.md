@@ -2,9 +2,9 @@
 
 ### *R* Packages
 
- - [data.table]() and [dplyr]() + [tidyr]() are two different approaches for data wrangling and engineering
+ - [data.table]() (or the *tidyverse* packages [readr]() + [dplyr]() + [tidyr]()) for data collection, wrangling, and engineering
 
- - [openxlsx]() and [readxl]() to easily read *Excel* files
+ - [openxlsx]() to easily read *Excel* files
  
  - [rgdal]() to read the boundaries in *shapefile* format
 
@@ -12,16 +12,16 @@
 
  - [rgeos](), [rmapshaper](), and [raster]() are sets of spatial tools
 
- - [leaflet]() the *R* wrapper for the eponymous [Javascript library](leaflet.js) that allows to build interactive maps (you can also use the more complete [tmap]() or [mapview](), though they both rely on *leaflet* anyway for the interactive mapping). [leaflet.extras](), [leaflet.extras2](), [leafsync]() are add-ons packages that allows the *R* *leaflet* package to exploit more of the functionalities included in the original JS library.
+ - [leaflet]() the *R* wrapper for the eponymous [Javascript library](leaflet.js) that allows to build interactive maps (you can also use the more complete [tmap]() or [mapview]() packeages, though they both rely on *leaflet* anyway for the interactive mapping). [leaflet.extras](), [leaflet.extras2](), and [leafsync]() are add-ons packages that allows the *R* *leaflet* package to exploit more of the functionalities included in the original JS library.
 
 
 ### Boundaries
 
  - [MSOA Super Generalized](https://opendata.arcgis.com/datasets/87aa4eb6393644768a5f85929cc704c2_0.zip)
  
- - [LTLA Ultra Generalized](https://opendata.arcgis.com/datasets/910f48f3c4b3400aa9eb0af9f8989bbe_0.zip) But these boundaries will be created by *dissolving* the above MSOA boundaries
+ - [LSOA Ultra Generalized](https://opendata.arcgis.com/datasets/910f48f3c4b3400aa9eb0af9f8989bbe_0.zip) 
  
- - [CCG Ultra Generalized](https://opendata.arcgis.com/datasets/dbfaf69873794690af4acddaf581572f_1.zip) 
+Other boundaries (*LTLA*, *UTLA*, *RGN*, *CCG*, *STP*) will be built by *dissolving* methods using the above boundaries and convenient lookup tables.
  
 
 ### Covid Data
@@ -34,22 +34,25 @@
  
  - [Hospital Admissions and Bed Occupancy by NHS trusts and Independent Sector Providers](https://www.england.nhs.uk/statistics/statistical-work-areas/covid-19-hospital-activity/)
  
- - [Potential Covid Calls. NHS Pathways and 111 by UTLA and CCG](https://digital.nhs.uk/data-and-information/publications/statistical/mi-potential-covid-19-symptoms-reported-through-nhs-pathways-and-111-online/latest/)
+ - [Covid Symptoms (NHS Pathways Calls and Online) by CCG and Sex + Age](https://digital.nhs.uk/data-and-information/publications/statistical/mi-potential-covid-19-symptoms-reported-through-nhs-pathways-and-111-online/latest/)
  
 
 ### Ancillary Data
 
  - [MSOA House of Commons *intelligible* Names](https://visual.parliament.uk/msoanames/static/MSOA-Names-1.7.csv)
 
- - [MSOA 2011 <=> LTLA 2020 <=> RGN lookup table](https://coronavirus.data.gov.uk/downloads/supplements/lookup_table.csv)
+ - [MSOA => LTLA => RGN APR-2020 lookup table](https://coronavirus.data.gov.uk/downloads/supplements/lookup_table.csv)
 
- - [OA <=> LSOA <=> MSOA 2011 lookup table](https://geoportal.statistics.gov.uk/datasets/output-area-to-lower-layer-super-output-area-to-middle-layer-super-output-area-to-local-authority-district-december-2011-lookup-in-england-and-wales)
+ - [OA => LSOA => MSOA 2011 lookup table](https://geoportal.statistics.gov.uk/datasets/output-area-to-lower-layer-super-output-area-to-middle-layer-super-output-area-to-local-authority-district-december-2011-lookup-in-england-and-wales)
 
- - [ONS Postcode Directory (AUG-2020)](https://geoportal.statistics.gov.uk/datasets/ons-postcode-directory-august-2020)
+ - [LSOA => CCG => STP <=> CAL APR-2020 lookup table](https://geoportal.statistics.gov.uk/datasets/lsoa-2011-to-clinical-commissioning-groups-to-sustainability-and-transformation-partnerships-april-2020-lookup-in-england)
+
+ - [ONS Postcode Directory AUG-2020](https://geoportal.statistics.gov.uk/datasets/ons-postcode-directory-august-2020)
+
 
 ### GeoDemographics
 
- - [Population mid-2019 by MSOA](https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/middlesuperoutputareamidyearpopulationestimates)
+ - [Population by MSOA and Sex + Age 2019](https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/middlesuperoutputareamidyearpopulationestimates)
 
  - [Index of Multiple Deprivation 2019](https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019)
 
@@ -62,7 +65,7 @@
  - [Electricity and Gas Consumption 2018](https://www.gov.uk/government/statistics/lower-and-middle-super-output-areas-gas-consumption)
 
 
-## Credits
+### Credits
 
  - [Gis Day website](https://www.gisday.com/en-us/overview)
  - Contains MSOA names © Open Parliament copyright and database right 2020
