@@ -47,11 +47,11 @@ You can found [here](https://www.ons.gov.uk/methodology/geography/ukgeographies/
 
  - [MSOA House of Commons *intelligible* Names](https://visual.parliament.uk/msoanames)
 
- - [MSOA => LTLA => RGN APR-2020 lookup table](https://coronavirus.data.gov.uk/details/about-data#cases-by-middle-super-output-area-msoa)
+ - [MSOA => LTLA => UTLA => RGN APR-2020](https://coronavirus.data.gov.uk/details/about-data#cases-by-middle-super-output-area-msoa)
 
- - [OA => LSOA => MSOA 2011 lookup table](https://geoportal.statistics.gov.uk/datasets/output-area-to-lower-layer-super-output-area-to-middle-layer-super-output-area-to-local-authority-district-december-2011-lookup-in-england-and-wales)
+ - [OA => LSOA => MSOA 2011](https://geoportal.statistics.gov.uk/datasets/output-area-to-lower-layer-super-output-area-to-middle-layer-super-output-area-to-local-authority-district-december-2011-lookup-in-england-and-wales)
 
- - [LSOA => CCG => STP <=> CAL APR-2020 lookup table](https://geoportal.statistics.gov.uk/datasets/lsoa-2011-to-clinical-commissioning-groups-to-sustainability-and-transformation-partnerships-april-2020-lookup-in-england)
+ - [LSOA => CCG => STP => CAL APR-2020](https://geoportal.statistics.gov.uk/datasets/lsoa-2011-to-clinical-commissioning-groups-to-sustainability-and-transformation-partnerships-april-2020-lookup-in-england)
 
  - [ONS Postcode Directory AUG-2020](https://geoportal.statistics.gov.uk/datasets/ons-postcode-directory-august-2020)
 
