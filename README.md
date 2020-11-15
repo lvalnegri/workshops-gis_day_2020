@@ -26,7 +26,7 @@ Some of the spatial packages mentioned above can be difficult to install correct
  
 As we are not concerned here with geographical details, both the above boundaries are downloaded in the *super generalised* form, and can be actually *simplified* further. 
 
-Other boundaries used in the session &mdash; *LTLA* Lower Tier Local Authorities, *UTLA* Upper Tier LA, *RGN* Regions, NHS *CCG* Clinical Commissioning Groups, NHS *STP* Sustainability and Transformation Partnerships &mdash; will be built by *dissolving* methods using the above boundaries and convenient lookup tables.
+Other boundaries used in the session &mdash; *LTLA* Lower Tier Local Authorities, *UTLA* Upper Tier LA, *RGN* Regions, *CCG* NHS Clinical Commissioning Groups, *STP* NHS Sustainability and Transformation Partnerships &mdash; will be built by *dissolving* methods using the above boundaries and convenient lookup tables.
 
 You can found [here](https://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography) a brief description of the UK Census Geography hierarchy, while [this](https://bit.ly/guide-uk-geographies) is a more comprehensive starting guide to the whole of UK Geographies.
 
