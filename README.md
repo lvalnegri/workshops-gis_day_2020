@@ -20,24 +20,25 @@ Some of the spatial packages mentioned above can be difficult to install correct
 
 ### Boundaries
 
- - [MSOA](https://geoportal.statistics.gov.uk/datasets/middle-layer-super-output-areas-december-2011-ew-bsc-v2)
+ - [MSOA](https://geoportal.statistics.gov.uk/datasets/middle-layer-super-output-areas-december-2011-ew-bsc-v2) Middle Layer Super Output Areas
  
- - [LSOA](https://geoportal.statistics.gov.uk/datasets/lower-layer-super-output-area-december-2011-ew-bsc-v2) 
+ - [LSOA](https://geoportal.statistics.gov.uk/datasets/lower-layer-super-output-area-december-2011-ew-bsc-v2) Lower Layer Super Output Areas
  
 As we are concerned here with geographical details, both the above boundaries are downloaded in the *super generalised* form, and can be actually simplified further. 
 
 Other boundaries used in the session &mdash; *LTLA*, *UTLA*, *RGN*, *CCG*, *STP* &mdash; will be built by *dissolving* methods using the above boundaries and convenient lookup tables.
- 
+
+You can found [here](https://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography) a brief description of the UK Census Geography hierarchy.
 
 ### Covid Data
 
- - Covid Cases by LTLA. [Total](https://coronavirus.data.gov.uk/downloads/csv/coronavirus-cases_latest.csv) and [by age class](https://coronavirus.data.gov.uk/downloads/demographic/cases/specimenDate_ageDemographic-stacked.csv)
+ - Covid Cases by LTLA [Total](https://coronavirus.data.gov.uk/details/about-data#legacy-csv-downloads) and [by Age Class](https://coronavirus.data.gov.uk/details/about-data#cases-by-age)
  
- - [Covid Cases by MSOA](https://coronavirus.data.gov.uk/downloads/msoa_data/MSOAs_latest.csv)
+ - [Covid Cases by MSOA](https://coronavirus.data.gov.uk/details/about-data#cases-by-middle-super-output-area-msoa)
  
- - [Covid Deaths by NHS trusts and Independent Sector Providers](https://www.england.nhs.uk/statistics/statistical-work-areas/covid-19-daily-deaths/)
+ - [Covid Deaths by NHS Trust](https://www.england.nhs.uk/statistics/statistical-work-areas/covid-19-daily-deaths/)
  
- - [Hospital Admissions and Bed Occupancy by NHS trusts and Independent Sector Providers](https://www.england.nhs.uk/statistics/statistical-work-areas/covid-19-hospital-activity/)
+ - [Hospital Admissions and Bed Occupancy by NHS Trust](https://www.england.nhs.uk/statistics/statistical-work-areas/covid-19-hospital-activity/)
  
  - [Covid Symptoms (NHS Pathways Calls and Online) by CCG and Sex + Age](https://digital.nhs.uk/data-and-information/publications/statistical/mi-potential-covid-19-symptoms-reported-through-nhs-pathways-and-111-online/latest/)
  
