@@ -45,9 +45,9 @@ You can found [here](https://www.ons.gov.uk/methodology/geography/ukgeographies/
 
 ### Ancillary Data
 
- - [MSOA House of Commons *intelligible* Names](https://visual.parliament.uk/msoanames/static/MSOA-Names-1.7.csv)
+ - [MSOA House of Commons *intelligible* Names](https://visual.parliament.uk/msoanames)
 
- - [MSOA => LTLA => RGN APR-2020 lookup table](https://coronavirus.data.gov.uk/downloads/supplements/lookup_table.csv)
+ - [MSOA => LTLA => RGN APR-2020 lookup table](https://coronavirus.data.gov.uk/details/about-data#cases-by-middle-super-output-area-msoa)
 
  - [OA => LSOA => MSOA 2011 lookup table](https://geoportal.statistics.gov.uk/datasets/output-area-to-lower-layer-super-output-area-to-middle-layer-super-output-area-to-local-authority-district-december-2011-lookup-in-england-and-wales)
 
@@ -62,7 +62,7 @@ You can found [here](https://www.ons.gov.uk/methodology/geography/ukgeographies/
 
  - [Index of Multiple Deprivation 2019](https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019)
 
- - [Food Shops Locations]() See my other github repo for how to collect data related to food shops
+ - [Food Shops Locations](https://ratings.food.gov.uk/open-data/en-GB) See [my other github repository] to learn how to collect data related to food shops
 
  - [Household Disposable Income FA-2018 by MSOA](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/smallareaincomeestimatesformiddlelayersuperoutputareasenglandandwales)
 
