@@ -2,18 +2,21 @@
 
 ### *R* Packages
 
- - [data.table]() (or the *tidyverse* packages [readr]() + [dplyr]() + [tidyr]()) for data collection, wrangling, and engineering
+ - [data.table](https://rdatatable.gitlab.io/data.table/) (or the [*tidyverse*](https://www.tidyverse.org/) packages [readr](https://readr.tidyverse.org/) + [dplyr](https://dplyr.tidyverse.org/) + [tidyr](https://tidyr.tidyverse.org/)) for data collection, wrangling, and engineering
 
- - [openxlsx]() to easily read *Excel* files
+ - [openxlsx](https://ycphs.github.io/openxlsx/index.html) to easily read *Excel* files
  
- - [rgdal]() to read the boundaries in *shapefile* format
+ - [rgdal](https://cloud.r-project.org/web/packages/rgdal/) to read the boundaries in *shapefile* format from the [ONS Geography Portal](https://geoportal.statistics.gov.uk/)
 
- - [sp]() to store the spatial objects as a specific *R* class (you can also use the more modern [sf]() that ties neatly with the *tidyvere*)
+ - [sp](https://cloud.r-project.org/web/packages/sp/) to store the spatial objects as a specific *R* class (you can also use the more modern [sf](https://github.com/r-spatial/sf/) that also ties neatly within the *tidyvere*)
 
- - [rgeos](), [rmapshaper](), and [raster]() are sets of spatial tools
+ - [rgeos](https://cloud.r-project.org/web/packages/rgeos/), [rmapshaper](https://github.com/ateucher/rmapshaper), [maptools](https://cloud.r-project.org/web/packages/maptools/), [raster](https://cran.r-project.org/web/packages/raster/index.html), and [terra](https://github.com/rspatial/terra) are sets of various spatial tools. 
 
- - [leaflet]() the *R* wrapper for the eponymous [Javascript library](leaflet.js) that allows to build interactive maps (you can also use the more complete [tmap]() or [mapview]() packeages, though they both rely on *leaflet* anyway for the interactive mapping). [leaflet.extras](), [leaflet.extras2](), and [leafsync]() are add-ons packages that allows the *R* *leaflet* package to exploit more of the functionalities included in the original JS library.
+ - [leaflet](http://rstudio.github.io/leaflet/) is the *R* wrapper for the eponymous [Javascript library](leaflet.js) that allows to build interactive maps (you can also use the more complete [tmap](https://github.com/mtennekes/tmap) or [mapview](https://github.com/r-spatial/mapview) packeages, though they both rely on *leaflet* anyway for the interactive mapping). [leaflet.extras](https://github.com/bhaskarvk/leaflet.extras), [leaflet.extras2](https://github.com/trafficonese/leaflet.extras2), and [leafsync](https://github.com/r-spatial/leafsync) are add-ons packages that allows the *R* *leaflet* package to exploit more of the functionalities included in the original JS library.
 
+A good introduction to *R* for Spatial Data Science can be found [here](https://rspatial.org/intr/).  
+
+Some of the spatial packages mentioned above can be difficult to install correctly, depending on your configuration. Have a look [here](https://github.com/lvalnegri/workshops-setup_-cloud_analytics_machine#install-linux-dependencies-for-r-packages) for a guide to the installation on a Ubuntu machine.
 
 ### Boundaries
 
