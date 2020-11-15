@@ -20,11 +20,13 @@ Some of the spatial packages mentioned above can be difficult to install correct
 
 ### Boundaries
 
- - [MSOA Super Generalized](https://opendata.arcgis.com/datasets/87aa4eb6393644768a5f85929cc704c2_0.zip)
+ - [MSOA](https://geoportal.statistics.gov.uk/datasets/middle-layer-super-output-areas-december-2011-ew-bsc-v2)
  
- - [LSOA Ultra Generalized](https://opendata.arcgis.com/datasets/910f48f3c4b3400aa9eb0af9f8989bbe_0.zip) 
+ - [LSOA](https://geoportal.statistics.gov.uk/datasets/lower-layer-super-output-area-december-2011-ew-bsc-v2) 
  
-Other boundaries (*LTLA*, *UTLA*, *RGN*, *CCG*, *STP*) will be built by *dissolving* methods using the above boundaries and convenient lookup tables.
+As we are concerned here with geographical details, both the above boundaries are downloaded in the *super generalised* form, and can be actually simplified further. 
+
+Other boundaries used in the session --- *LTLA*, *UTLA*, *RGN*, *CCG*, *STP* --- will be built by *dissolving* methods using the above boundaries and convenient lookup tables.
  
 
 ### Covid Data
