@@ -14,7 +14,7 @@
 
  - [leaflet](http://rstudio.github.io/leaflet/) is the *R* wrapper for the eponymous [Javascript library](https://leafletjs.com/) that allows to build interactive maps (you can also use the more complete [tmap](https://github.com/mtennekes/tmap) or [mapview](https://github.com/r-spatial/mapview) packeages, though they both rely on *leaflet* anyway for the interactive mapping). [leaflet.extras](https://github.com/bhaskarvk/leaflet.extras), [leaflet.extras2](https://github.com/trafficonese/leaflet.extras2), and [leafsync](https://github.com/r-spatial/leafsync) are add-ons packages that allows the *R* *leaflet* package to exploit more of the functionalities included in the original JS library.
 
-A good introduction to *R* for Spatial Data Science can be found [here](https://rspatial.org/intr/).  
+A good introduction to *R* for Spatial Data Science can be found [here](https://rspatial.org/intr/). Lots of resources about GIS in general, and its applications, can be found on the dedicated section of the [GIS Day website](https://www.gisday.com/en-us/ebooks). 
 
 Some of the spatial packages mentioned above can be difficult to install correctly, depending on your configuration. Have a look [here](https://github.com/lvalnegri/workshops-setup_-cloud_analytics_machine#install-linux-dependencies-for-r-packages) for a guide to the installation on a Ubuntu machine.
 
