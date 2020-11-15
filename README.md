@@ -8,7 +8,7 @@
  
  - [rgdal](https://cloud.r-project.org/web/packages/rgdal/) to read the boundaries in *shapefile* format from the [ONS Geography Portal](https://geoportal.statistics.gov.uk/)
 
- - [sp](https://cloud.r-project.org/web/packages/sp/) to store the spatial objects as a specific *R* class (you can also use the more modern [sf](https://github.com/r-spatial/sf/) that also ties neatly within the *tidyvere*)
+ - [sp](https://cloud.r-project.org/web/packages/sp/) to store the spatial objects as a specific *R* class (you can also use the more modern [sf](https://github.com/r-spatial/sf/), that also ties neatly within the *tidyverse*)
 
  - [rgeos](https://cloud.r-project.org/web/packages/rgeos/), [rmapshaper](https://github.com/ateucher/rmapshaper), [maptools](https://cloud.r-project.org/web/packages/maptools/), [raster](https://cran.r-project.org/web/packages/raster/index.html), and [terra](https://github.com/rspatial/terra) are sets of various spatial tools. 
 
