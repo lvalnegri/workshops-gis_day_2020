@@ -26,7 +26,7 @@ Some of the spatial packages mentioned above can be difficult to install correct
  
 As we are concerned here with geographical details, both the above boundaries are downloaded in the *super generalised* form, and can be actually simplified further. 
 
-Other boundaries used in the session -- *LTLA*, *UTLA*, *RGN*, *CCG*, *STP* -- will be built by *dissolving* methods using the above boundaries and convenient lookup tables.
+Other boundaries used in the session &mdash; *LTLA*, *UTLA*, *RGN*, *CCG*, *STP* &mdash; will be built by *dissolving* methods using the above boundaries and convenient lookup tables.
  
 
 ### Covid Data
