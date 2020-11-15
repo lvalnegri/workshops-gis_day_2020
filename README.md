@@ -74,9 +74,14 @@ You can found [here](https://www.ons.gov.uk/methodology/geography/ukgeographies/
 ### Credits
 
  - [Gis Day website](https://www.gisday.com/en-us/overview)
+ 
  - Contains MSOA names © Open Parliament copyright and database right 2020
+ 
  - Contains Ordnance Survey data © Crown copyright and database right 2020
+ 
  - Contains Royal Mail data © Royal Mail copyright and database right 2020
+ 
  - Contains Public Health England data © Crown copyright and database right 2020
+ 
  - Office for National Statistics licensed under the Open Government Licence v.3.0
  
