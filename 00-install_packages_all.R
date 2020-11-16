@@ -1,6 +1,6 @@
-###################################
-# GIS DAY 2020 * INSTALL PACKAGES #
-###################################
+##################################################
+# USEFUL PACKAGES FOR (GIS) DATA SCIENCE PROJECT #
+##################################################
 # Notice that these are MORE packages than the ones needed for the workshop
 
 pkgs <- c(

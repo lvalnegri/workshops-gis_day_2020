@@ -11,7 +11,7 @@ dunzip <- function(url, fname, pref = NA){
   download.file(url, 'temp.zip')
   unzip('temp.zip')
   if(is.na(pref)){
-    file.rename(unzip('temp.zip', list = TRUE)$Name, paste0('./download/', fname))
+    file.rename(unzip('temp.zip', list = TRUE)$Name[1], paste0('./download/', fname))
   } else {
     fnames <- list.files('./', paste0(pref, '*.*'))
     file.rename(fnames, file.path('./boundaries', gsub('.*\\.', paste0(fname, '.'), fnames)))
@@ -37,9 +37,37 @@ y <- fread('./download/oas.csv', select = c('OA11CD', 'LSOA11CD', 'MSOA11CD'), c
 write_fst(y, './data/oa_lsoa_msoa')
 write_fst(unique(y[, OA := NULL]), './data/lsoa_msoa')
 
+## Lookups NHS Areas LSOA => CCG => STP
+download.file('https://opendata.arcgis.com/datasets/1631beea57ff4e9fb90d75f9c764ce26_0.csv', './download/nhs.csv')
+y <- fread(
+        './download/nhs.csv', 
+        select = c('LSOA11CD', 'CCG20CD', 'CCG20CDH', 'CCG20NM', 'STP20CD', 'STP20NM', 'CAL20CD', 'CAL20NM'), 
+        col.names = c('LSOA', 'CCG', 'CCGnhs', 'CCGn', 'STP', 'STPn', 'CAL', 'CALn')
+)
+write_fst(y, './data/lsoa_ccg_stp_cal')
+write_fst(unique(y[, LSOA := NULL])[order(CCG)], './data/ccg_stp_cal')
+
+## Lookups Postcodes Directory => coordinates + lookups => OA
+tmp <- tempfile()
+download.file('https://www.arcgis.com/sharing/rest/content/items/a644dd04d18f4592b7d36705f93270d8/data', destfile = tmp)
+fname <- unzip(tmp, list = TRUE)
+fname <- fname[order(fname$Length, decreasing = TRUE), 'Name'][1]
+unzip(tmp, files = fname, exdir = './download/', junkpaths = TRUE)
+unlink(tmp)
+system(paste0('mv ./download/', basename(fname), ' ./download/postcodes.csv'))
+y <- fread('./download/postcodes.csv', select = c('pcd', 'long', 'lat', 'oa11', 'lsoa11', 'msoa11', 'oslaua', 'rgn', 'ccg', 'stp'))
+setnames(y, c('PCU', 'x_lon', 'y_lat', 'OA', 'LSOA', 'MSOA', 'LTLA', 'RGN', 'CCG', 'STP'))
+write_fst(y, './data/postcodes')
+
+## List of NHS Trusts
+dunzip('https://files.digital.nhs.uk/assets/ods/current/etr.zip', 'trusts.csv')
+y <- fread('./download//trusts.csv', select = c(1:2, 10), col.names = c('TRST', 'name', 'PCU'))
+write_fst(y, './data/trusts')
+
+
 ### Geodemographics -----
 
-## Population (mid-2019)
+## Population MSOA (mid-2019)
 dunzip('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fpopulationandmigration%2fpopulationestimates%2fdatasets%2fmiddlesuperoutputareamidyearpopulationestimates%2fmid2019sape22dt4/sape22dt4mid2019msoasyoaestimatesunformatted.zip', 'population.xlsx')
 getSheetNames('./download/population.xlsx')
 y <- as.data.table(read.xlsx('./download/population.xlsx', 'Mid-2019 Persons', startRow = 5))
@@ -95,8 +123,13 @@ y <- yt[y, on = 'MSOA']
 write_fst(y, './data/consumption')
 
 
-### Boundaries MSOA -----
+### Boundaries -----
+
+## MSOA 
 dunzip('https://opendata.arcgis.com/datasets/23cdb60ee47e4fef8d72e4ee202accb0_0.zip', 'MSOA', 'Middle')
+
+## LSOA 
+dunzip('https://opendata.arcgis.com/datasets/c892586698ad4d268f9288f1df20ab77_0.zip', 'LSOA', 'Lower')
 
 ### Clean and Exit -----
 rm(list = ls())
