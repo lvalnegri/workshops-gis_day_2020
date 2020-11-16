@@ -28,3 +28,4 @@ vignettes/*.pdf
 .Renviron
 gis_day_2020.Rproj
 etr.pdf
+libs
