@@ -58,7 +58,7 @@ You can found [here](https://www.ons.gov.uk/methodology/geography/ukgeographies/
 
 ### GeoDemographics
 
- - [Population by MSOA and Sex + Age 2019](https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/middlesuperoutputareamidyearpopulationestimates)
+ - [Population by LSOA + MSOA and Sex + Age 2019](https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/middlesuperoutputareamidyearpopulationestimates)
 
  - [Index of Multiple Deprivation 2019](https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019)
 
