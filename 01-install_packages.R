@@ -15,7 +15,7 @@ pkgs <- c(
     # data presentation / deployment
     'htmltools', 'rmarkdown', 'shiny', 'shinyjs', 'shinyscreenshot', 'shinyWidgets', 'xaringan',
     # spatial tools
-    'ggmap', 'ggspatial', 'leaflet', 'leaflet.extras', 'leaflet.extras2', 'leafpop', 'leafsync', 
+    'ggmap', 'ggspatial', 'leafgl', 'leaflet', 'leaflet.extras', 'leaflet.extras2', 'leaflet.minicharts', 'leafpop', 'leafsync', 
     'maptools', 'mapview', 'raster', 'rgdal', 'rgeos', 'rmapshaper', 'sf', 'sp', 'tmap'
 )
 pkgs.not <- pkgs[!sapply(pkgs, require, char = TRUE)]

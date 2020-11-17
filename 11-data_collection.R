@@ -24,7 +24,7 @@ dunzip <- function(url, fname, pref = NA){
 ## MSOA <=> LTLA <=> RGN lookups table
 download.file('https://coronavirus.data.gov.uk/downloads/supplements/lookup_table.csv', './download/lookups.csv')
 y <- fread('./download/lookups.csv', select = 1:7, col.names = c('RGN', 'RGNn', 'UTLA', 'UTLAn', 'LTLA', 'LTLAn', 'MSOA'))
-write_fst(y, './data/lookups')
+write_fst(y, './data/msoa_ltla_utla_rgn')
 
 ## MSOA HoC Names (it is actually already included in the above file, but some names have been added wrong)
 download.file('https://visual.parliament.uk/msoanames/static/MSOA-Names-1.7.csv', './download/msoa_names.csv')
@@ -61,7 +61,7 @@ write_fst(y, './data/postcodes')
 
 ## List of NHS Trusts
 dunzip('https://files.digital.nhs.uk/assets/ods/current/etr.zip', 'trusts.csv')
-y <- fread('./download//trusts.csv', select = c(1:2, 10), col.names = c('TRST', 'name', 'PCU'))
+y <- fread('./download//trusts.csv', select = c(1:2, 10), col.names = c('TRST', 'TRSTn', 'PCU'))
 write_fst(y, './data/trusts')
 
 
@@ -75,6 +75,15 @@ y[, 2:6 := NULL]
 setnames(y, c(1:2, ncol(y)), c('MSOA', 'TOT', '90'))
 setnames(y, 3:ncol(y), paste0('X', stringr::str_pad(names(y)[3:ncol(y)], 2, pad = '0')))
 write_fst(y, './data/population')
+
+## Population LSOA (mid-2019)
+dunzip('https://www.ons.gov.uk/file?uri=%2fpeoplepopulationandcommunity%2fpopulationandmigration%2fpopulationestimates%2fdatasets%2flowersuperoutputareamidyearpopulationestimates%2fmid2019sape22dt2/sape22dt2mid2019lsoasyoaestimatesunformatted.zip', 'population_lsoa.xlsx')
+getSheetNames('./download/population_lsoa.xlsx')
+y <- as.data.table(read.xlsx('./download/population_lsoa.xlsx', 'Mid-2019 Persons', startRow = 5))
+y[, 2:6 := NULL]
+setnames(y, c(1:2, ncol(y)), c('LSOA', 'TOT', '90'))
+setnames(y, 3:ncol(y), paste0('X', stringr::str_pad(names(y)[3:ncol(y)], 2, pad = '0')))
+write_fst(y, './data/population_lsoa')
 
 ## Index of Multiple deprivation (IMD 2019) NOTE: highest score <=> lowest rank/decile => worst situation
 download.file('https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/833978/File_5_-_IoD2019_Scores.xlsx', './download/imd.xlsx')

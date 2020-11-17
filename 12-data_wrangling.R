@@ -10,7 +10,7 @@ lapply(pkgs, require, char = TRUE)
 ### MSOA -----
 
 # start from the GOV lookups table
-y <- read_fst('./data/lookups', as.data.table = TRUE)
+y <- read_fst('./data/msoa_ltla_utla_rgn', as.data.table = TRUE)
 yn <- names(y)
 
 # HoC Names 
@@ -79,6 +79,27 @@ write_fst(y, './data/MSOA')
 
 ### LSOA -----
 
+# start from the NHS lookups table
+y <- read_fst('./data/lsoa_ccg_stp_cal', as.data.table = TRUE)
+yn <- names(y)
+
+# population
+yt <- read_fst('./data/population_lsoa', as.data.table = TRUE)
+y <- yt[, .(LSOA, population = TOT)][y, on = 'LSOA']
+setcolorder(y, yn)
+yn <- names(y)
+sum(y$population) # 56,286,961 check -> https://en.wikipedia.org/wiki/Demography_of_England
+
+# population by sex and age 
+# !!==> insert some code here <==!!
+
+# IMD
+yt <- read_fst('./data/imd', as.data.table = TRUE)
+y <- yt[y, on = 'LSOA']
+setcolorder(y, yn)
+
+# save
+write_fst(y, './data/LSOA')
 
 
 ### TRUSTS -----
@@ -89,22 +110,25 @@ y <- read_fst('./data/trusts', as.data.table = TRUE)
 y[nchar(PCU) == 5, PCU := paste0(substr(PCU, 1, 2), '  ', substring(PCU, 3))]
 y[nchar(PCU) == 6, PCU := paste0(substr(PCU, 1, 3), ' ', substring(PCU, 4))]
 y[nchar(PCU) == 8, PCU := gsub(' ', '', PCU)]
-pc <- read_fst('./data/postcodes', columns = c('PCU', 'x_lon', 'y_lat', 'LSOA'), as.data.table = TRUE)
+pc <- read_fst('./data/postcodes', columns = c('PCU', 'x_lon', 'y_lat', 'LSOA', 'MSOA', 'CCG'), as.data.table = TRUE)
 y <- pc[y, on = 'PCU']
 
 # cleaning names
-y[, name := tolower(gsub("\\s+", " ", trimws(name)))]
-y[, name := gsub("(^|[[:space:]])([[:alpha:]])", "\\1\\U\\2", name, perl = TRUE)]
-y[, name := gsub('Nhs', 'NHS', name)]
+y[, TRSTn := tolower(gsub("\\s+", " ", trimws(TRSTn)))]
+y[, TRSTn := gsub("(^|[[:space:]])([[:alpha:]])", "\\1\\U\\2", TRSTn, perl = TRUE)]
+y[, TRSTn := gsub('Nhs', 'NHS', TRSTn)]
 
-# converting as spatial obj (?)
-# coordinates(y) <- ~x_lon+y_lat
-# proj4string(y) <- CRS('+init=epsg:4326')
+# adding flag
+y[, is_foundation := 0][grepl('Foundation', TRSTn), is_foundation := 1]
 
-# save as RDS
-setcolorder(y, c('TST', 'name', 'x_lon', 'y_lat'))
+# save as dataframe
+setcolorder(y, c('TRST', 'TRSTn', 'x_lon', 'y_lat'))
 write_fst(y, './data/TRST')
 
+# converting and save as spatial object
+coordinates(y) <- ~x_lon+y_lat
+proj4string(y) <- CRS('+init=epsg:4326')
+saveRDS(y, './boundaries/TRST')
 
 ### Boundaries -----
 
@@ -139,27 +163,24 @@ bnd.y <- merge(bnd, y[, .(MSOA, LTLA)], by = 'MSOA')
 bnd.y <- aggregate(bnd.y, 'LTLA')
 plot(bnd.y)
 saveRDS(bnd.y, './boundaries/LTLA')
-
-## build dataset 
-# ===> code something here <===
+yt <- y[, .(area = sum(area), population = sum(population)), .(LTLA, LTLAn, UTLA, UTLAn, RGN, RGNn)][order(LTLA)]
+write_fst(yt, './data/LTLA')
 
 ### UTLA built from MSOA using dissolving
 bnd.y <- merge(bnd, y[, .(MSOA, UTLA)], by = 'MSOA')
 bnd.y <- aggregate(bnd.y, 'UTLA')
 plot(bnd.y)
 saveRDS(bnd.y, './boundaries/UTLA')
-
-## build dataset 
-# ===> code something here <===
+yt <- y[, .(area = sum(area), population = sum(population)), .(UTLA, UTLAn, RGN, RGNn)][order(UTLA)]
+write_fst(yt, './data/UTLA')
 
 ### RGN built from MSOA using dissolving
 bnd.y <- merge(bnd, y[, .(MSOA, RGN)], by = 'MSOA')
 bnd.y <- aggregate(bnd.y, 'RGN')
 plot(bnd.y)
 saveRDS(bnd.y, './boundaries/RGN')
-
-## build dataset 
-# ===> code something here <===
+yt <- y[, .(area = sum(area), population = sum(population)), .(RGN, RGNn)][order(RGN)]
+write_fst(yt, './data/RGN')
 
 ## LSOA
 bnd <- readOGR('./boundaries', 'LSOA', stringsAsFactors = 'FALSE')
@@ -191,28 +212,51 @@ bnd.y <- merge(bnd, y[, .(LSOA, CCG)], by = 'LSOA')
 bnd.y <- aggregate(bnd.y, 'CCG')
 plot(bnd.y)
 saveRDS(bnd.y, './boundaries/CCG')
-
-## build dataset 
-# ===> code something here <===
+yt <- y[, .(area = sum(area), population = sum(population)), .(CCG, CCGnhs, CCGn, STP, STPn, CAL, CALn)][order(CCG)]
+write_fst(yt, './data/CCG')
 
 ## STP built from LSOA using dissolving
 bnd.y <- merge(bnd, y[, .(LSOA, STP)], by = 'LSOA')
 bnd.y <- aggregate(bnd.y, 'STP')
 plot(bnd.y)
 saveRDS(bnd.y, './boundaries/STP')
-
-## build dataset 
-# ===> code something here <===
+yt <- y[, .(area = sum(area), population = sum(population)), .(STP, STPn, CAL, CALn)][order(STP)]
+write_fst(yt, './data/STP')
 
 ## CAL built from LSOA using dissolving
 bnd.y <- merge(bnd, y[, .(LSOA, CAL)], by = 'LSOA')
 bnd.y <- aggregate(bnd.y, 'CAL')
 plot(bnd.y)
 saveRDS(bnd.y, './boundaries/CAL')
+yt <- y[, .(area = sum(area), population = sum(population)), .(CAL, CALn)][order(CAL)]
+write_fst(yt, './data/CAL')
 
-## build dataset 
-# ===> code something here <===
 
+### save all datasets and boundaries in unique lists -----
+lcns <- c('LSOA', 'MSOA', 'LTLA', 'UTLA', 'RGN', 'CCG', 'STP', 'CAL', 'TRST')
+y <- lapply(lcns, function(x) read_fst(paste0('./data/', x), as.data.table = TRUE))
+names(y) <- lcns
+saveRDS(y, './data/datasets')
+y <- lapply(lcns, function(x) readRDS(paste0('./boundaries/', x)))
+names(y) <- lcns
+saveRDS(y, './boundaries/boundaries')
+
+### TEST. Using <stamen> map as google now requires API key
+library(ggmap)
+yy <- y[['LSOA']]
+ylsoa <- read_fst('./data/LSOA', as.data.table = TRUE)
+nm <- 'South East London'
+yyl <- subset(yy, yy$LSOA %in% ylsoa[CALn %chin% nm, LSOA])
+plot(yyl)
+mp <- get_stamenmap(bbox = c(yyl@bbox[1,1], yyl@bbox[2,1], yyl@bbox[1,2], yyl@bbox[2,2]), zoom = 10, maptype = 'toner-lite')
+yylf <- fortify(yyl) 
+gp <- ggmap(mp) +
+    geom_path(data = yylf, aes(x = long, y = lat, group = group), color = 'red', size = .2) +
+    theme_void() +
+    ggtitle(nm) +
+    theme( plot.title = element_text(colour = 'orange'), panel.border = element_rect(colour = 'grey', fill = NA, size = 2))
+gp
+ggsave(gp, device = 'png',filename = 'LSOA_SE.png', path = './outputs/')
 
 ### Clean and Exit -----
 rm(list = ls())
