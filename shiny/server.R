@@ -67,7 +67,38 @@ observeEvent(input$out_map_shape_click, {
     )
 })
 
-output$out_tbl <- renderDT({ datatable(dts) })
+output$out_tbl <- renderDT({ 
+    datatable(dts,
+        rownames = FALSE,
+        selection = 'single',
+        class = 'cell-border stripe hover nowrap',
+        extensions = c('Buttons', 'FixedColumns', 'Scroller'),
+        options = list(
+            scrollX = TRUE,
+            scrollY = 600,
+            scroller = TRUE,
+            fixedColumns = list(leftColumns = 2),
+            searchHighlight = TRUE,
+            deferRender = TRUE,
+            columnDefs = list( list(targets = c(0, 2, 4, 6), visible = FALSE) ),
+            initComplete = JS(
+                "function(settings, json) {",
+                "$(this.api().table().header()).css({'background-color': '#238443', 'color': '#fff'});",
+                "}"
+            ),
+            dom = 'Bftip'
+        )
+    ) %>% 
+    formatCurrency(c('area', 'population', 'tc', 'wc', 'pc', 'fc', 'bc', 'tr', 'wr', 'pr', 'fr', 'br'), '', digits = 0) %>% 
+    formatPercentage(c('wpr', 'wfr', 'fbr'), digits = 1) %>%
+    formatStyle('wc',
+       background = styleColorBar(dts[, wc], '#c6dbef'),
+       backgroundSize = '100% 90%',
+       backgroundRepeat = 'no-repeat',
+       backgroundPosition = 'center'
+    ) 
+        
+})
 
 # save map as html in shiny server app folder
 # saveWidget(mp, 'ltla.html')
