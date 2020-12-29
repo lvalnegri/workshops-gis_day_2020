@@ -42,6 +42,8 @@ You can found [here](https://www.ons.gov.uk/methodology/geography/ukgeographies/
  
  - [Covid Symptoms (NHS Pathways Calls and Online) by CCG and Sex + Age](https://digital.nhs.uk/data-and-information/publications/statistical/mi-potential-covid-19-symptoms-reported-through-nhs-pathways-and-111-online/latest/)
  
+ - *NEW* [Covid Vaccinations](https://www.england.nhs.uk/statistics/statistical-work-areas/covid-19-vaccinations/)
+ 
 
 ### Ancillary Data
 
