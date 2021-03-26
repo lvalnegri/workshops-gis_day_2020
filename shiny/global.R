@@ -2,13 +2,13 @@
 # GIS DAY 2020 * SHINY APP - global.R #
 #######################################
 
-# this line must be deleted if the app is deployed on a server
+# !!===> you must first run this line if you are trying the app from the project directory <===!!
 # setwd('./shiny/')
 
 # load packages
 pkgs <- c(
-    'data.table', 'DT', 'dygraphs', 'fst', 'htmltools', 'leaflet', 'RColorBrewer', 'sp',
-    'leaflet.extras', 'leaflet.extras2', 'leaflet.minicharts', 'leafpop', 'leafsync',
+    'data.table', 'DT', 'dygraphs', 'htmltools',
+    'leaflet', 'leaflet.extras', 'leaflet.extras2', 'sp',
     'shiny', 'shinycssloaders', 'shinyjs', 'shinyWidgets'
 )
 lapply(pkgs, require, char = TRUE)
@@ -18,19 +18,21 @@ options(spinner.color = '#333399', spinner.size = 1, spinner.type = 4)
 options(bitmapType = 'cairo', shiny.usecairo = TRUE)
 options(warn = -1)
 
+# !!===> if you want to publish the app, you should changed this section accordingly <===!!
 # load data
 bnd <- readRDS('../boundaries/LTLA')
 dts <- readRDS('../data/datasets')
 dts <- dts[['LTLA']]
 bnd <- merge(bnd, dts, 'LTLA')
-cvd <- read_fst('../covid/cases_ltla', as.data.table = TRUE)
+cvd <- fst::read_fst('../covid/cases_ltla', as.data.table = TRUE)
 mxd <- max(cvd$day)
 
-# list of metric to be displayed on choropleth
+# list of metrics to be displayed on choropleth
 mtc.lst <- c(
     'Total Cases' = 'tc', 'Total Rate' = 'tr', 
     'Cases Last 7 days' = 'wc', 'Rate Last 7 days' = 'wr',
-    'Var 7 days' = 'wpr', 'Var 14 days' = 'fbr'
+    'Cases Last 14 days' = 'fc', 'Rate Last 14 days' = 'fr',
+    'Var % 7 days' = 'wpr', 'Var % 14 days' = 'fbr'
 )
 
 # list of background tiles
@@ -51,15 +53,9 @@ tiles.lst <- list(
 )
 
 # list of available methods when classifying numeric variables (for package classInt)
-class.methods <- c(
+cls.lst <- c(
     'Quantiles' = 'quantile',           # each class contains (more or less) the same amount of values
-    'Equal Intervals' = 'equal',        # the range of the variable is divided into n part of equal space
-    'Fixed' = 'fixed',                  # need an additional argument fixedBreaks that lists the n+1 values to be used
-    'Pretty Integers' = 'pretty',       # sequence of about n+1 equally spaced round values which cover the range of the values in x. 
-                                        # the values are chosen so that they are 1, 2 or 5 times a power of 10.
-    'Natural Breaks' = 'jenks',         # seeks to reduce the variance within classes and maximize the variance between classes
-    'Hierarchical Cluster' = 'hclust',  # clustering with short distance
-    'K-means Cluster' = 'kmeans'        # clustering with low variance and similar size
+    'Equal Intervals' = 'equal'         # the range of the variable is divided into n part of equal space
 )
 
 # list of ColorBrewer palettes classified by type of visualization scale
@@ -73,10 +69,6 @@ palettes.lst <- list(
     'DIVERGING' = c(   # ordinal data where both low and high are important (i.e. deviation from some reference "average" point)
         'Brown-Blue-Green' = 'BrBG', 'Pink-Blue-Green' = 'PiYG', 'Purple-Red-Green' = 'PRGn', 'Orange-Purple' = 'PuOr', 'Red-Blue' = 'RdBu', 'Red-Grey' = 'RdGy',
         'Red-Yellow-Blue' = 'RdYlBu', 'Red-Yellow-Green' = 'RdYlGn', 'Spectral' = 'Spectral'
-    ),
-    'QUALITATIVE' = c( # categorical/nominal data where there is no logical order
-        'Accent' = 'Accent', 'Dark2' = 'Dark2', 'Paired' = 'Paired', 'Pastel1' = 'Pastel1', 'Pastel2' = 'Pastel2',
-        'Set1' = 'Set1', 'Set2' = 'Set2', 'Set3' = 'Set3'
     )
 )
 
@@ -133,31 +125,63 @@ basemap <- function(coords = c(-2.903205, 54.17463), bbox = NULL, zm = 6, tiles 
     mp
 }
 
+# # build the label (on mouse hover)
+# fmt <- function(x, dgt = 0) format(round(x, dgt), big.mark = ',')
+# add_label_poly <- function(y){
+#     lapply(
+#         1:nrow(y),
+#         function(x)
+#             HTML(paste0(
+#                 '<hr>',
+#                     '<b>LTLA</b>: ', y$UTLAn[x], '<br>',
+#                     '<b>Region</b>: ', y$RGNn[x], '<br><br>',
+#                     '<b>Total Cases</b>: ', fmt(y$tc[x]), '<br>',
+#                     '<b>Total Rate</b>: ', fmt(y$tr[x]), '<br><br>',
+#                     '<b>Weekly Cases</b>: ', fmt(y$wc[x]), '<br>',
+#                     '<b>Weekly Rate</b>: ', fmt(y$wr[x]), '<br>',
+#                     '<b>Weekly Change</b>: ', fmt(y$wpr[x] * 100, 2), '%<br><br>',
+#                     '<b>Fortnight Cases</b>: ', fmt(y$fc[x]), '<br>',
+#                     '<b>Fortnight Rate</b>: ', fmt(y$fr[x]), '<br>',
+#                     '<b>Fortnight Change</b>: ', fmt(y$fbr[x] * 100, 2), '%<br><br>',
+#                     '<b>Population</b>: ', fmt(y$population[x]), '<br>',
+#                     '<b>Density sqkm</b>: ', fmt(y$population[x] / y$area[x] * 1e6),
+#                 '<hr>',
+#             ))
+#     )
+# }
+
 # build the label (on mouse hover)
-add_label_poly <- function(y){
-    lapply(
-        1:nrow(y),
-        function(x)
-            HTML(
-                '<hr>',
-                    '<b>LTLA</b>: ', y$UTLAn[x], '<br>',
-                    '<b>Region</b>: ', y$RGNn[x], '<br>',
-                '<hr>',
-                    '<b>Total Cases</b>: ', y$tc[x], '<br>',
-                    '<b>Total Rate</b>: ', y$tr[x], '<br><br>',
-                    '<b>Weekly Cases</b>: ', y$wc[x], '<br>',
-                    '<b>Weekly Rate</b>: ', y$wr[x], '<br>',
-                    '<b>Weekly Change</b>: ', y$wpr[x], '<br><br>',
-                    '<b>Fortnight Cases</b>: ', y$fc[x], '<br>',
-                    '<b>Fortnight Rate</b>: ', y$fr[x], '<br>',
-                    '<b>Fortnight Change</b>: ', y$fbr[x], '<br><br>',
-                '<hr>',
-                    '<b>Population</b>: ', format(y$population[x], big.mark = ','), '<br>',
-                    '<b>Density</b>: ', format(round(y$population[x]/y$area[x]), big.mark = ','),
-                '<hr>'
-            )
+fmt <- function(x, dgt = 0) format(round(x, dgt), big.mark = ',')
+label_tbl <- function(x){
+    y <- data.frame(
+            'Total' = c(x$tc, x$tr, NA),
+            'Week' = c(x$wc, x$wr, x$wpr),
+            'Fortnight' = c(x$fc, x$fr, x$fbr)
     )
+    rownames(y) <- c('Cases', 'Rate', 'Var %')
+    y
 }
+# add_label_poly <- function(y){
+#     lapply(
+#         1:nrow(y),
+#         function(x)
+#             HTML(paste0(
+#                 '<hr>',
+#                     '<b>LTLA</b>: ', y$UTLAn[x], '<br>',
+#                     '<b>Region</b>: ', y$RGNn[x], '<br>',
+#                     '<b>Population</b>: ', fmt(y$population[x]), '<br>',
+#                     '<b>Density sqkm</b>: ', fmt(y$population[x] / y$area[x] * 1e6), 
+#                 '<hr>',
+#                     kableExtra::kable(label_tbl(y[x]))
+#             ))
+#     )
+# }
+add_label_poly <- function(y) lapply(1:nrow(y), function(x) kableExtra::kable(label_tbl(y[x])))
+
+
+
+
+
 
 # build the popup (on mouse click)
 add_popup_poly <- function(x){

@@ -1,0 +1,873 @@
+---
+title: "💻 <i>R</i> Workshop 💻"
+subtitle: "GIS DAY 2020<br> Mapping Covid-19 in England using R and Leaflet"
+author: "Luca Valnegri"
+output:
+  xaringan::moon_reader:
+    css: ["default", "metropolis", "metropolis-fonts", "https://datamaps.uk/assets/datamaps/xari.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLanguage: ["r"]
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:10"
+---
+layout: true
+<div class="datamaps-header"> 
+    <img class="logo" src="https://datamaps.uk/assets/datamaps/logo_white.png"/> 
+</div>
+<div class="datamaps-footer"> 
+    <span> &copy;2020 datamaps.uk <br> 
+        <a href = "https://github.com/lvalnegri/workshop-gis_day_2020"> GitHub Repository </a> 
+    </span> 
+</div>
+
+---
+# Learning outcomes
+
+ - be able to use *R* and *RStudio* to collect, read, manipulate, subsetting and save spatial and non-spatial data
+
+--
+
+ - join spatial data to attribute data
+ 
+--
+
+ - customize classification methods, and choosing the right colour *palette*
+
+--
+
+ - some basic spatial operations, like reprojection, simplifying, dissolving, and point in polygon analysis
+
+--
+
+ - know how to design and create both *dotmaps* and *choropleths*
+ 
+--
+
+ - be able to add labels, popups, and modals in Shiny apps that can also show tables and graphs
+
+
+---
+# Packages [1] Data Collection and Wrangling
+
+ - [data.table](https://rdatatable.gitlab.io/data.table/) 
+
+--
+
+ - [openxlsx](https://ycphs.github.io/openxlsx/index.html) to easily read *Excel* files
+
+--
+
+ - the [*tidyverse*](https://www.tidyverse.org/) collection:
+   - [readr](https://readr.tidyverse.org/) read *csv* files
+   - [readxl](https://readr.tidyverse.org/) read *Excel* files
+   - [dplyr](https://dplyr.tidyverse.org/) data manipulation
+   - [tidyr](https://tidyr.tidyverse.org/) data reshaping
+
+--
+
+ - [magrittr](https://cran.r-project.org/web/packages/magrittr/) for the *pipe* operator `%>%`: `f(x,y) => x %>% f(y)` 
+
+---
+# Packages [2] Spatial Tools
+
+ - [rgdal](https://cloud.r-project.org/web/packages/rgdal/) read/save vector-based spatial data (*boundaries*) in various format (*shapefile*, *GeoJSON*, *kml*, *MapInfo*)
+
+--
+
+ - [sp](https://cloud.r-project.org/web/packages/sp/) to store the spatial objects as a specific *R* class
+
+--
+
+ - 
+
+--
+
+ - 
+
+
+---
+# Packages [3] Data Display
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+---
+# Packages [4] Data Visualization: Static
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+
+---
+# Packages [5] Data Visualization: Interactive
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+---
+# Packages [6] Data Presentation and Deployment
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+
+---
+# Workflow
+
+ - Install packages
+
+--
+
+ - Data Collection and Wrangling
+
+--
+
+ - Data Display and Visualization
+
+--
+
+ - Dotmaps for Trusts (daily deaths)        
+
+--
+
+ - Choropleths for LTLA (daily cases) and MSOA (weekly cases)
+
+--
+
+ - Bivariate Choropleths by syncing or by ternary color (total cases by MSOA + IMD / income / ...)
+
+--
+
+ - Shiny app [add time series on mouse click for any of the above]
+ 
+--
+
+ - Automating data collection
+
+
+---
+# UK Geographies
+
+ - *PCU* Postcode Units
+
+--
+
+ - *OA*, *LSOA*, and *MSOA* Small Areas from the Census Hierarchy 
+
+--
+
+ - *LTLA*, *UTLA* and *RGN* Administrative Hierarchy
+
+--
+
+ - *CCG* and *STP* NHS Hierarchy
+
+
+---
+# Data Collection: Ancillary Data
+
+ - [MSOA House of Commons *intelligible* Names](https://visual.parliament.uk/msoanames)
+
+--
+
+ - [MSOA => LTLA => UTLA => RGN APR-2020](https://coronavirus.data.gov.uk/details/about-data#cases-by-middle-super-output-area-msoa)
+
+--
+
+ - [OA => LSOA => MSOA 2011](https://geoportal.statistics.gov.uk/datasets/output-area-to-lower-layer-super-output-area-to-middle-layer-super-output-area-to-local-authority-district-december-2011-lookup-in-england-and-wales)
+
+--
+
+ - [LSOA => CCG => STP => CAL APR-2020](https://geoportal.statistics.gov.uk/datasets/lsoa-2011-to-clinical-commissioning-groups-to-sustainability-and-transformation-partnerships-april-2020-lookup-in-england)
+
+--
+
+ - [ONS Postcode Directory AUG-2020](https://geoportal.statistics.gov.uk/datasets/ons-postcode-directory-august-2020)
+
+
+---
+# Data Collection: GeoDemographics
+
+ - [Population by LSOA + MSOA and Sex + Age](https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/middlesuperoutputareamidyearpopulationestimates)
+
+--
+
+ - [Index of Multiple Deprivation by LSOA](https://www.gov.uk/government/statistics/english-indices-of-deprivation-2019)
+
+--
+
+ - [Food Shops Locations by PCU](https://ratings.food.gov.uk/open-data/en-GB) See [my other github repository] to learn how to collect data related to food shops
+
+--
+
+ - [Household Disposable Income by MSOA](https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/datasets/smallareaincomeestimatesformiddlelayersuperoutputareasenglandandwales)
+
+--
+
+ - [Median House Prices by MSOA](https://www.ons.gov.uk/peoplepopulationandcommunity/housing/datasets/hpssadataset2medianhousepricebymsoaquarterlyrollingyear)
+
+--
+
+ - [Electricity and Gas Consumption](https://www.gov.uk/government/statistics/lower-and-middle-super-output-areas-gas-consumption)
+
+
+---
+# Data Collection: Covid-19 Data
+
+ - [Covid Cases by LTLA](https://coronavirus.data.gov.uk/details/about-data#legacy-csv-downloads)
+ 
+--
+
+ - [Covid Cases by Age Class](https://coronavirus.data.gov.uk/details/about-data#cases-by-age)
+ 
+--
+
+ - [Covid Cases by MSOA](https://coronavirus.data.gov.uk/details/about-data#cases-by-middle-super-output-area-msoa)
+ 
+--
+
+ - [Covid Deaths by NHS Trust](https://www.england.nhs.uk/statistics/statistical-work-areas/covid-19-daily-deaths/)
+ 
+--
+
+ - [Hospital Admissions and Bed Occupancy by NHS Trust](https://www.england.nhs.uk/statistics/statistical-work-areas/covid-19-hospital-activity/)
+ 
+--
+
+ - [Covid Symptoms (NHS Pathways Calls and Online) by CCG and Sex + Age](https://digital.nhs.uk/data-and-information/publications/statistical/mi-potential-covid-19-symptoms-reported-through-nhs-pathways-and-111-online/latest/)
+ 
+
+---
+# Spatial Data Representation
+
+ - In general, there are two main family of spatial data, each dealt in its own way 
+
+--
+
+   - Vector: point, lines, polygons
+
+--
+
+   - Raster: regular grids
+
+--
+
+   In the current session, we are going to deal only with vector data: Points and Polygons 
+
+--
+
+ - Normally, in spatial data analysis each spatial object has a dataset attached to it, storing data related to each of its components
+
+
+---
+# R as a GIS
+
+ - Using the *sp* packages, Points and Polygons are represented by the classes:
+   - `SpatialPointsDataFrame`
+   - `SpatialPolygonsDataFrame`
+
+--
+
+ - Both objects are partitioned in *slots*, accessed using the `@` operator
+
+--
+
+ - *Points* contains a `coords` slot that stores the coordinates of each point, 
+
+--
+
+ - *Polygons* contains a `polygons` slot that stores, among other information, the coordinates related to each polygon 
+
+
+---
+# R as a GIS
+
+Other slots common to both classes are:
+ 
+--
+
+ - `data` a dataframe that stores the data connected to each entity
+ 
+--
+
+ - `bbox` the coordinates for the *bounding box*, the minimum square box that can include all the entities.  
+ 
+--
+
+ - `proj4string` a string that define the *projection* and *coordinate reference system* (CRS) 
+ 
+--
+
+   It can be written in the form `+init=epsg:x` where `x` is a code that define 
+
+
+---
+# R as a GIS
+
+ - When using web application, it is customary to use the so called *WGS84*, [World Geodetic System 1984](https://epsg.io/4326), identified by `epsg:4326`.
+
+--
+
+ - Its unit is the *degree*, so it can't be used to measure areas or lengths.
+
+--
+
+ - Great Britan: [British National Grid, OSGB_1936](https://epsg.io/27700) with `epsg:27700` 
+
+--
+
+ - Ireland: [Irish Grid, GCS_TM65](https://epsg.io/29902) with `epsg:29902`
+
+--
+
+ - 
+
+--
+
+ - 
+
+---
+# How to read points
+
+ - Various UK geographies can be downloaded from the GeoPortal 
+
+--
+
+ - You can also find additional 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+---
+# TITLE
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+---
+# TITLE
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+---
+# TITLE
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+---
+# TITLE
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+---
+# TITLE
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+---
+# TITLE
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+---
+# TITLE
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+---
+# TITLE
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+---
+# TITLE
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+---
+# TITLE
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+---
+# TITLE
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+---
+# TITLE
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+---
+# TITLE
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+---
+# TITLE
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+---
+# TITLE
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+---
+# Summary
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+--
+
+ - 
+
+---
+# Credits
+
+ - [Gis Day website](https://www.gisday.com/en-us/overview)
+ 
+ - Contains Public Health England data © Crown copyright and database right 2020
+ 
+ - Contains Ordnance Survey data © Crown copyright and database right 2020
+ 
+ - Office for National Statistics licensed under the Open Government Licence v.3.0
+
+ - Contains MSOA names © Open Parliament copyright and database right 2020
+ 
+ - Contains Royal Mail data © Royal Mail copyright and database right 2020
+ 
+
+---
+# Resources
+
+--
+
+ - [Cheat Sheet]()
+ 
+--
+
+ - [Reference]()
+ 
+--
+
+ - [RStudio Tutorials]()
+
+
+
+---
+# Thank You!
+
+ - [`r icon::fa("github")` lvalnegri](https://github.com/lvalnegri)
+ 
+ - [`r icon::fa("twitter")` @datamaps](https://twitter.com/datamaps)
+
+ - [`r icon::fa("linkedin")` Luca Valnegri](https://www.linkedin.com/in/lucavalnegri)

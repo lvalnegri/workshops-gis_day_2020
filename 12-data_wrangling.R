@@ -44,6 +44,12 @@ y <- yt[y, on = 'MSOA']
 setcolorder(y, yn)
 yn <- names(y)
 
+# population by sex
+
+
+# population by sex+age
+
+
 # IMD
 yt <- read_fst('./data/imd', as.data.table = TRUE)
 ym <- read_fst('./data/lsoa_msoa', as.data.table = TRUE)
@@ -232,7 +238,7 @@ yt <- y[, .(area = sum(area), population = sum(population)), .(CAL, CALn)][order
 write_fst(yt, './data/CAL')
 
 
-### save all datasets and boundaries in unique lists -----
+## save all datasets and boundaries in unique lists -----
 lcns <- c('LSOA', 'MSOA', 'LTLA', 'UTLA', 'RGN', 'CCG', 'STP', 'CAL', 'TRST')
 y <- lapply(lcns, function(x) read_fst(paste0('./data/', x), as.data.table = TRUE))
 names(y) <- lcns

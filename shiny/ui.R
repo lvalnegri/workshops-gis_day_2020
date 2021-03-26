@@ -10,15 +10,18 @@ fluidPage(
 
         sidebarPanel(
 
-            pickerInput('cbo_mtc', 'METRIC:', mtc.lst),
+            pickerInput('cbo_mtc', 'METRIC:', mtc.lst, 'wr'),
             tags$br(),
             
-            pickerInput('cbo_pal', 'PALETTE:', palettes.lst),
+            pickerInput('cbo_cls', 'CLASS METHOD:', cls.lst, 'quantile'),
+            tags$br(),
+            
+            pickerInput('cbo_pal', 'PALETTE:', palettes.lst, 'YlOrBr'),
             checkboxInput('chk_pal_rev', 'REVERSE'),
-            sliderInput('cbo_pal_bns', 'BINS:', min = 5, max = 10, value = 7),
+            sliderInput('cbo_pal_bns', 'BINS:', min = 5, max = 13, value = 10),
             tags$br(),
             
-            checkboxInput('chk_lgn', 'ADD LEGEND', TRUE),
+            checkboxInput('chk_lgn', 'ADD LEGEND', FALSE),
             checkboxInput('chk_ttl', 'ADD TITLE', FALSE),
             tags$hr(),
             
